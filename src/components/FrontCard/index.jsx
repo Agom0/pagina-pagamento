@@ -3,7 +3,7 @@ import { LuNfc } from "react-icons/lu";
 
 export default function CardFront() {
     return (
-        <div className="w-[500px] h-[300px] bg-black rounded-xl">
+        <div className="w-[450px] h-[260px] bg-black rounded-xl">
             <div className="w-full h-[30%] flex" >
                 <div className="w-[50%] h-full flex items-center pl-2 gap-2">
                     <div className="w-[70px] h-[70px] rounded-full bg-white"></div>
