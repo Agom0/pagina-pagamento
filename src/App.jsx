@@ -14,11 +14,19 @@ export default function App() {
   const [cvv, setCvv] = useState(0)
   const [Senha, setSenha] = useState("")
 
+  function formatNumero (evento){
+    let numero = evento.target.value
+    let numeroFormatado = numero.replace(/\D/g, '') // Remove tudo que não for número
+    numeroFormatado = numeroFormatado.substring(0, 16) // Limita a 16 Dígitos
+    numeroFormatado = numeroFormatado.replace(/(\d{4})/g, '$1 ').trim() // Adiciona espaço a cada 4 dígitos
+    setNumber(numeroFormatado)
+  }
+
   async function pagar() {
     if (!nome || !number || !mes || !ano || !cvv || !Senha) {
       return toast.error("preencha todos os campos")
     }
-    if (number.length !== 16) {
+    if (number.replace(/\s/g,'').length !== 16) {
       return toast.error("Número do cartão invalido")
     }
 
@@ -41,7 +49,7 @@ export default function App() {
     try {
       const response = await instance.post("/creditcards", {
         name: nome,
-        number: number,
+        number: number.replace(/\s/g,''),
         expiration: `${mes}/${ano}`,
         cvv: cvv,
         password: Senha
@@ -65,10 +73,10 @@ export default function App() {
       />
       <div className="w-[40%] relative h-full bg-[#271540]">
         <div className="absolute top-10 left-[200px]">
-          <CardFront />
+          <CardFront nome ={nome} numero={number}/>
         </div>
         <div className="absolute top-85 left-80">
-          <BackCard />
+          <BackCard cvv={cvv}/>
         </div>
       </div>
       <div className="w-[60%] h-full flex items-end p-[40px] flex-col">
@@ -84,7 +92,9 @@ export default function App() {
           <div className="w-full flex flex-col">
             <label htmlFor="numero" className="text-[20px]">Número do cartão
             </label>
-            <input onChange={(Event) => setNumber(Event.target.value)}
+            <input 
+            onChange={(Event) => formatNumero(Event)}
+            value={number}
               type="text" className="w-full h-[40px] rounded-md bg-[#d9d9d9]" />
           </div>
           <div className="flex">

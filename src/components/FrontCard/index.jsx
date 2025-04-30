@@ -1,7 +1,7 @@
 import { FcSimCardChip } from "react-icons/fc";
 import { LuNfc } from "react-icons/lu";
 
-export default function CardFront() {
+export default function CardFront({nome, numero}) {
     return (
         <div className="w-[450px] h-[260px] bg-black rounded-xl">
             <div className="w-full h-[30%] flex" >
@@ -21,11 +21,11 @@ export default function CardFront() {
 
                 </div>
                 <div className="w-full h[40%] pl-4"> 
-                    <p className="text-[30px] text-white">000 000 000 000</p>
+                    <p className="text-[30px] text-white">{numero || "0000 0000 0000 0000"}</p>
                 </div>
             </div>
             <div className="w-full h-[30%] pl-4">
-                <p className="text-white text-[30px]">Nome do cartão</p>
+                <p className="text-white text-[30px]">{nome || "Nome do cartão"}</p>
             </div>
         </div>
     )
